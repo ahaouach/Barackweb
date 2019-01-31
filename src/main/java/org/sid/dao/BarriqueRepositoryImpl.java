@@ -1,0 +1,59 @@
+package org.sid.dao;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import org.sid.entities.Barrique;
+import org.sid.entities.Etiquette;
+import org.sid.entities.Rack;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+@Repository
+@Transactional(readOnly = true)
+public class BarriqueRepositoryImpl implements BarriqueRepositoryCustom {
+	
+	@PersistenceContext
+	private EntityManager em;
+	
+	
+	public List<Barrique> AlerteMaturite() {
+		final Date date = new Date();
+		String Dates = new SimpleDateFormat("dd/MM/yyyy").format(date);
+		Query req = em.createNativeQuery("SELECT * FROM barrique b WHERE CONVERT(b.DateMaturaVin, DATETIME) <= NOW()");
+		List<String> a = req.getResultList();
+		System.out.println(""+a);
+		/*SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		for (int i = 0; i < a.size(); i++) {
+			Date dateMaturVin = null;
+			try {
+				dateMaturVin = format.parse(a.get(i));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			Date Datesys = null;
+			try {
+				Datesys = format.parse(Dates);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			if (dateMaturVin.compareTo(Datesys) <= 0) {
+				String dateConversion = new SimpleDateFormat("dd/MM/yyyy").format(dateMaturVin);
+				Query lesDates = em.createNativeQuery(
+						"SELECT IdBarique FROM Barrique b WHERE b.DateMaturaVin = '" + dateConversion + "'");
+				List<String> listesDates = lesDates.getResultList();
+				System.out.println("***********   ALERTE !!  ************* Barriques qui ont eu leur maturité sont : "
+						+ listesDates+" à la date :"+dateConversion);
+			}
+		}*/
+		return null;
+	}
+	
+	
+	
+}
