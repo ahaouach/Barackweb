@@ -26,13 +26,14 @@ import org.sid.entities.TypeMouvement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+@Service
 @RestController
 public class BarriqueRestService {
 	@Autowired
@@ -62,8 +63,11 @@ public class BarriqueRestService {
 	@RequestMapping(value = "/alerteBarriques", method = RequestMethod.GET)
 	public List<Barrique> AlerteMaturite() {
 		return barriqueRepository.AlerteMaturite();
+	}
 	
-	
+	@RequestMapping(value = "/barriquesteste/{id}", method = RequestMethod.POST)
+	public Barrique addBarrique(@RequestBody Barrique b,  long IdEtiquette, long IdRack) {
+		return barriqueRepository.addBarrique(b, IdEtiquette, IdRack);
 	}
 	
 }

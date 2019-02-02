@@ -9,5 +9,7 @@ public interface BarriqueRepositoryCustom {
 
 	public List<Barrique> AlerteMaturite();
 
+	public Barrique addBarrique(Barrique b, long IdEtiquette, long IdRack);
+
 
 }

@@ -2,6 +2,7 @@ package org.sid;
 
 import org.sid.dao.BarriqueRepository;
 import org.sid.dao.BarriqueRepositoryImpl;
+import org.sid.dao.EntrepotRepository;
 import org.sid.dao.RackRepository;
 import org.sid.entities.Barrique;
 import org.sid.entities.Rack;
@@ -11,17 +12,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.stereotype.Service;
+
 @SpringBootApplication
 
-
-/*@ComponentScan("org.sid") //to scan packages mentioned*/
+@ComponentScan("org.sid") // to scan packages mentioned*/
 @EnableJpaRepositories("org.sid.dao")
-public class BarackwebApplication implements CommandLineRunner{
+public class BarackwebApplication implements CommandLineRunner {
 	@Autowired
-private BarriqueRepository barriqueRepository ; 
-@Autowired
-private RackRepository rackRepository ; 
-
+	private BarriqueRepository barriqueRepository;
+	@Autowired
+	private RackRepository rackRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BarackwebApplication.class, args);
@@ -29,22 +30,27 @@ private RackRepository rackRepository ;
 
 	@Override
 	public void run(String... args) throws Exception {
-		//barriqueRepository.AlerteMaturite();
-		//barriqueRepository.addBarrique(new Barrique("aaa", 12, 12, "b", "2019/02/01", "2022/02/01", "2019/01/29", true), 1, 1);
-		//barriqueRepository.save(new Barrique("aaa", 12, 12, "b", "2019/02/01", "2022/02/01", "2019/01/29", true));
-		//barriqueRepository.save(new Barrique("aaa", 12, 12, "b", "2019/02/01", "2019/01/01", "2019/01/29", true));
-		//rackRepository.save(new Rack(10, "droit", 6, 50, 20, "2019/02/01"));
-		 // barriqueRepository.save(new Barrique("aaa", 12, 12, "b", "2019/02/01", "2022/02/01", "2019/01/29", true));
-		rackRepository.findAll().forEach(r->{
-			System.out.println("le nouveau rack"+r.getIdRack());
-			
-		});
+		barriqueRepository.AlerteMaturite();
+		//barriqueRepository.addBarrique(new Barrique("aaa", 12, 12, "b", "2019/02/01", "2022/02/01", "2019/01/29", true),
+			//	1, 1);
+	//	barriqueRepository.addBarrique(new Barrique("azel", 20, 20, "A", dateFabricaVin, dateMaturaVin, dateOperation, etat), IdEtiquette, IdRack)
+		// barriqueRepository.save(new Barrique("aaa", 12, 12, "b", "2019/02/01",
+		// "2022/02/01", "2019/01/29", true));
+	
+		barriqueRepository.findAll().forEach(c -> {
+			System.out.println("Barrique selectionnées sont : " + c.getIdBarique());
+			// barriqueRepository.save(new Barrique("aaa", 12, 12, "b", "2019/02/01",
+			// "2019/01/01", "2019/01/29", true));
+			// rackRepository.save(new Rack(10, "droit", 6, 50, 20, "2019/02/01"));
+			// barriqueRepository.save(new Barrique("aaa", 12, 12, "b", "2019/02/01",
+			// "2022/02/01", "2019/01/29", true));
 		
-		barriqueRepository.findAll().forEach(c->{
-			System.out.println("Barrique selectionnées sont : "+c.getIdBarique());
-			
+
+		});
+		rackRepository.findAll().forEach(r -> {
+			System.out.println("le nouveau rack" + r.getIdRack());
+
 		});
 	}
 
 }
-
