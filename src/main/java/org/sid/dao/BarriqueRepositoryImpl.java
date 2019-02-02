@@ -29,30 +29,8 @@ public class BarriqueRepositoryImpl implements BarriqueRepositoryCustom {
 		Query req = em.createNativeQuery("SELECT * FROM Barrique b WHERE CONVERT(b.date_matura_vin, DATETIME) <= NOW()");
 		List<String> a = req.getResultList();
 		System.out.println(""+a);
-		/*SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		for (int i = 0; i < a.size(); i++) {
-			Date dateMaturVin = null;
-			try {
-				dateMaturVin = format.parse(a.get(i));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-			Date Datesys = null;
-			try {
-				Datesys = format.parse(Dates);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-			if (dateMaturVin.compareTo(Datesys) <= 0) {
-				String dateConversion = new SimpleDateFormat("dd/MM/yyyy").format(dateMaturVin);
-				Query lesDates = em.createNativeQuery(
-						"SELECT IdBarique FROM Barrique b WHERE b.DateMaturaVin = '" + dateConversion + "'");
-				List<String> listesDates = lesDates.getResultList();
-				System.out.println("***********   ALERTE !!  ************* Barriques qui ont eu leur maturité sont : "
-						+ listesDates+" à la date :"+dateConversion);
-			}
-		}*/
-		return null;
+	
+		return req.getResultList();
 	}
 	
 	@Override
@@ -69,5 +47,9 @@ public class BarriqueRepositoryImpl implements BarriqueRepositoryCustom {
 		return b;
 	}
 	
-	
+	@Override
+	public List<Barrique> getBarriques() {
+		Query req = em.createQuery("select b from Barrique b");
+		return req.getResultList();
+	}
 }

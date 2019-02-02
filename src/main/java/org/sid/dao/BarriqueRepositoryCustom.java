@@ -11,5 +11,7 @@ public interface BarriqueRepositoryCustom {
 
 	public Barrique addBarrique(Barrique b, long IdEtiquette, long IdRack);
 
+	public List<Barrique> getBarriques();
+
 
 }

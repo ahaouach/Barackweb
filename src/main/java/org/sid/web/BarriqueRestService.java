@@ -39,7 +39,7 @@ public class BarriqueRestService {
 	@Autowired
 	private BarriqueRepository barriqueRepository;
 
-	@RequestMapping(value = "/barriques", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/barriques", method = RequestMethod.GET)
 	public List<Barrique> getBarriques() {
 		return barriqueRepository.findAll();
 	}
@@ -47,9 +47,9 @@ public class BarriqueRestService {
 	@RequestMapping(value = "/barriques/{id}", method = RequestMethod.GET)
 	public Barrique getBarriques(@PathVariable Long id) {
 		return barriqueRepository.findOne(id);
-	}
+	}*/
 
-	@RequestMapping(value = "/barriques/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/addbarriques/{id}", method = RequestMethod.POST)
 	public Barrique save(@RequestBody Barrique b) {
 		return barriqueRepository.save(b);
 	}
@@ -68,6 +68,11 @@ public class BarriqueRestService {
 	@RequestMapping(value = "/barriquesteste/{id}", method = RequestMethod.POST)
 	public Barrique addBarrique(@RequestBody Barrique b,  long IdEtiquette, long IdRack) {
 		return barriqueRepository.addBarrique(b, IdEtiquette, IdRack);
+	}
+	
+	@RequestMapping(value = "/barriques", method = RequestMethod.GET)
+	public List<Barrique> getBarriques() {
+		return barriqueRepository.getBarriques();
 	}
 	
 }

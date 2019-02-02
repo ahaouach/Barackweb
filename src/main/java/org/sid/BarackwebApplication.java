@@ -3,8 +3,10 @@ package org.sid;
 import org.sid.dao.BarriqueRepository;
 import org.sid.dao.BarriqueRepositoryImpl;
 import org.sid.dao.EntrepotRepository;
+import org.sid.dao.EtiquetteRepository;
 import org.sid.dao.RackRepository;
 import org.sid.entities.Barrique;
+import org.sid.entities.Entrepot;
 import org.sid.entities.Rack;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -23,14 +25,25 @@ public class BarackwebApplication implements CommandLineRunner {
 	private BarriqueRepository barriqueRepository;
 	@Autowired
 	private RackRepository rackRepository;
-
+	@Autowired
+	private EntrepotRepository entrepotRepository;
+    @Autowired
+    private EtiquetteRepository etiquetteRepository;
+    
+    
 	public static void main(String[] args) {
 		SpringApplication.run(BarackwebApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		barriqueRepository.AlerteMaturite();
+		barriqueRepository.AlerteMaturite(); 
+		//entrepotRepository.save(new Entrepot("aaa", 3000, "2019/02/01", true));
+		entrepotRepository.findAll().forEach(r -> {
+			System.out.println("le nouveau entrepot " + r.getIdEntrepot());
+
+		});
+		
 		//barriqueRepository.addBarrique(new Barrique("aaa", 12, 12, "b", "2019/02/01", "2022/02/01", "2019/01/29", true),
 			//	1, 1);
 	//	barriqueRepository.addBarrique(new Barrique("azel", 20, 20, "A", dateFabricaVin, dateMaturaVin, dateOperation, etat), IdEtiquette, IdRack)
