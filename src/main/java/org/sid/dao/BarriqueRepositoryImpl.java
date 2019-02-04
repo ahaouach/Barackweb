@@ -34,7 +34,7 @@ public class BarriqueRepositoryImpl implements BarriqueRepositoryCustom {
 	}
 	
 	@Override
-	public Barrique addBarrique(Barrique b, long IdEtiquette, long IdRack) {
+	public void addBarrique(Barrique b, long IdEtiquette, long IdRack) {
 		Etiquette e = em.find(Etiquette.class, IdEtiquette);
 		b.setEtiquettes(e);
 		Rack r = em.find(Rack.class, IdRack);
@@ -44,12 +44,29 @@ public class BarriqueRepositoryImpl implements BarriqueRepositoryCustom {
 				+ " est ajouté avec succés dans l'emplacement " + b.getXLigne() + b.getYColone() + b.getZEtiquette()
 				+ ":) " + "*************************");
 
-		return b;
+		
 	}
 	
 	@Override
 	public List<Barrique> getBarriques() {
-		Query req = em.createQuery("select b from Barrique b");
+		Query req = em.createNativeQuery("select * from Barrique b");
 		return req.getResultList();
 	}
+	
+	@Override
+	public List<Barrique> RechercherBarrique(long IdEntrepot) {
+
+		// Entrepot e = em.find(Entrepot.class, IdEntrepot);
+		Query req = em.createNativeQuery("select b.id_barique, b.code_barre, b.date_fabrica_vin, b.date_matura_vin, b.date_operation,"
+				+ " b.etat, b.xligne, b.ycolone, b.zetiquette, b.id_rack "
+				+ "from barrique b "
+				+ "INNER JOIN rack r ON r.id_rack = b.id_rack " + "INNER JOIN entrepot e ON e.id_entrepot = r.id_entrepot "
+				+ "WHERE e.id_entrepot = '" + IdEntrepot + "'");
+		List<String> a = req.getResultList();
+		System.out.println("" + a);
+		return req.getResultList();
+
+	}
+	
+	
 }

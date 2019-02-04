@@ -30,9 +30,9 @@ public class EtiquetteRestService {
 			return etiquetteRepository.findOne(id);
 		}
 
-		@RequestMapping(value = "/etiquettes/{id}", method = RequestMethod.POST)
-		public Etiquette save(@RequestBody Etiquette e) {
-			return etiquetteRepository.save(e);
+		@RequestMapping(value = "/etiquettesajouter", method = RequestMethod.POST)
+		public Etiquette addEtiquette(@RequestBody Etiquette et) {
+			return etiquetteRepository.save(et);
 		}
 	}
 
