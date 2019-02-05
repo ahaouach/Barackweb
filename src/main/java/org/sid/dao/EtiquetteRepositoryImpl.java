@@ -15,28 +15,26 @@ import org.springframework.transaction.annotation.Transactional;
 public class EtiquetteRepositoryImpl implements EtiquetteRepositoryCustom {
 	@PersistenceContext
 	private EntityManager em;
-	
+
 	@Override
 	public Etiquette addEtiquette(Etiquette et) {
 		em.persist(et);
-		System.out.println("****************************  " + "Etiquette numero :" + et.getIdEtiquette()
-				+ " est ajouté avec succés !! :) " + "*************************");
-
 		return et;
 	}
+
 	@Override
-	public void ModifEttiquette(long IdEtiquette, String code) {
+	public Etiquette ModifEttiquette(long IdEtiquette, String code) {
 		Etiquette e = em.find(Etiquette.class, IdEtiquette);
-		em.createQuery("update Etiquette set Code = '" + code + "' where IdEtiquette = '" + IdEtiquette + "'")
+		em.createQuery("update etiquette set Code = '" + code + "' where id_etiquette = '" + IdEtiquette + "'")
 				.executeUpdate();
 		em.refresh(e);
-	
+		return e;
 
 	}
 
 	@Override
 	public List<Etiquette> getEtiquettes() {
-		Query req = em.createQuery("select e from Etiquette e where Etat = 1");
+		Query req = em.createNativeQuery("select * from Etiquette e where e.Etat=1");
 		return req.getResultList();
 	}
 

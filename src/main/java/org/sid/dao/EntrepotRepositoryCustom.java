@@ -8,7 +8,7 @@ import org.sid.entities.Entrepot;
 public interface EntrepotRepositoryCustom {
 	public List<Entrepot> getEntrepots();
 
-	public void addEntrepot(Entrepot e);
+	public Entrepot addEntrepot(Entrepot e);
 
 	public List<Entrepot> getEntrepotsEtat();
 

@@ -21,32 +21,33 @@ public class EntrepotRepositoryImpl implements EntrepotRepositoryCustom {
 	
 	@Override
 	public List<Entrepot> getEntrepots() {
-		Query req = em.createNativeQuery("select * from entrepot b");
+		Query req = em.createNativeQuery("select * from Entrepot b");
 		return req.getResultList();
 	}
 	@Override
-	public void addEntrepot(Entrepot e) {
+	public Entrepot addEntrepot(Entrepot e) {
 		em.persist(e);
+		return e;
 	}
 	
 	@Override
 	public List<Entrepot> getEntrepotsEtat() {
 
-		Query req = em.createNativeQuery("select e from entrepot e where Etat = 1");
+		Query req = em.createNativeQuery("select * from Entrepot e where e.Etat = 1");
 		return req.getResultList();
 	}
 	
 	@Override
 	public Entrepot ModifEntrepot(long IdEntrepot, String ReferenceEntrepot, float Superficie) {
 		Entrepot e = em.find(Entrepot.class, IdEntrepot);
-		em.createNativeQuery("update entrepot set reference_entrepot = '" + ReferenceEntrepot + "' , superficie = '"
-				+ Superficie + "' where id_entrepot = '" + IdEntrepot + "'").executeUpdate();
+		em.createNativeQuery("update entrepot set ReferenceEntrepot = '" + ReferenceEntrepot + "' , Superficie = '"
+				+ Superficie + "' where IdEntrepot = '" + IdEntrepot + "'").executeUpdate();
 		em.refresh(e);
 		return e;
 	}
 	@Override
 	public List<Entrepot> RechercherEntrepot(long IdEntrepot) {
-		Query req = em.createNativeQuery("select * from entrepot e where id_entrepot = '" + IdEntrepot + "'");
+		Query req = em.createNativeQuery("select * from Entrepot e where IdEntrepot = '" + IdEntrepot + "'");
 		System.out.println(""+req.getResultList().toString());
 		return req.getResultList();
 

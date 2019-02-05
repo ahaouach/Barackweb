@@ -22,6 +22,7 @@ public class Etiquette implements Serializable {
 	
 	@OneToMany(mappedBy="Etiquettes",fetch=FetchType.LAZY)
 	private Collection<Barrique> Barriques;
+	
 	public long getIdEtiquette() {
 		return IdEtiquette;
 	}

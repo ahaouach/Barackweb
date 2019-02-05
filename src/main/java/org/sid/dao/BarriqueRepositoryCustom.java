@@ -14,7 +14,10 @@ public interface BarriqueRepositoryCustom {
 
 	public List<Barrique> getBarriques();
 
-	public List<Barrique> RechercherBarrique(long IdEntrepot);
+
+	public List<Barrique> RechercherBarriqueEntrepot(long IdEntrepot);
+
+	public List<Barrique> RechercherBarrique(long IdBarique);
 
 
 

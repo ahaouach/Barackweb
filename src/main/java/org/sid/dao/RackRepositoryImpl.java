@@ -17,20 +17,20 @@ import org.springframework.transaction.annotation.Transactional;
 public class RackRepositoryImpl implements RackRepositoryCustom {
 	@PersistenceContext
 	private EntityManager em;
-	
+
 	@Override
 	public List<Rack> getRacks() {
-		Query req = em.createNativeQuery("select * from rack r");
+		Query req = em.createNativeQuery("select * from Rack r");
 		return req.getResultList();
 	}
-	
+
 	@Override
 	public Rack ModifRack(long IdRack, int Numero, String Emplacement, int NbreLigne, int NbreColonne,
 			int NbrePronfondeur) {
 		Rack r = em.find(Rack.class, IdRack);
-		em.createQuery("update rack set numero = '" + Numero + "' , emplacement = '" + Emplacement
-				+ "' , nbre_ligne = '" + NbreLigne + "', nbre_colonne = '" + NbreColonne + "' , nbre_pronfondeur = '"
-				+ NbrePronfondeur + "' where id_rack = '" + IdRack + "'").executeUpdate();
+		em.createQuery("update rack set Numero = '" + Numero + "' , Emplacement = '" + Emplacement + "' , NbreLigne = '"
+				+ NbreLigne + "', NbreColonne = '" + NbreColonne + "' , NbrePronfondeur = '" + NbrePronfondeur
+				+ "' where IdRack = '" + IdRack + "'").executeUpdate();
 		em.refresh(r);
 		return r;
 	}
@@ -41,15 +41,12 @@ public class RackRepositoryImpl implements RackRepositoryCustom {
 		r.setEntrepot(e);
 		em.persist(r);
 
-		System.out.println("****************************  rack numero :" + r.getIdRack()
-				+ " est ajouté avec succés !! :) *************************");
 		return r;
 	}
-	
 
 	@Override
 	public List<Rack> RechercherRack(int Numero) {
-		Query req = em.createNativeQuery("SELECT id_rack " + "From rack r " + "WHERE numero = '" + Numero + "'");
+		Query req = em.createNativeQuery("SELECT * " + "From Rack r " + "WHERE Numero = '" + Numero + "'");
 		List<String> r = req.getResultList();
 		System.out.println("" + r);
 		return req.getResultList();

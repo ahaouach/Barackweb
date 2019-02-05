@@ -25,7 +25,7 @@ public class RackRestService {
 		return rackRepository.getRacks();
 	}
 
-	@RequestMapping(value = "/racks/{Numero}", method = RequestMethod.GET)
+	@RequestMapping(value = "/racksNumero/{Numero}", method = RequestMethod.GET)
 	public List<Rack> RechercherRack(@PathVariable int Numero) {
 		return rackRepository.RechercherRack(Numero);
 	}
@@ -33,5 +33,10 @@ public class RackRestService {
 	@RequestMapping(value = "/racks/{id}", method = RequestMethod.POST)
 	public Rack addRack(@RequestBody Rack r, Long IdEntrepot) {
 		return rackRepository.addRack(r, IdEntrepot);
+	}
+	@RequestMapping(value = "/racks/{IdRack}{Numero}{Emplacement}{NbreLigne}{NbreColonne}{NbrePronfondeur}", method = RequestMethod.POST)
+	public Rack ModifRack(long IdRack, int Numero, String Emplacement, int NbreLigne, int NbreColonne,
+			int NbrePronfondeur) {
+		return rackRepository.ModifRack(IdRack, Numero, Emplacement, NbreLigne, NbreColonne, NbrePronfondeur);
 	}
 }

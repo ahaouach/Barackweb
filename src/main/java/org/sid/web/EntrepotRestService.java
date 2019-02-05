@@ -3,6 +3,7 @@ package org.sid.web;
 import java.util.List;
 
 import org.sid.dao.EntrepotRepository;
+import org.sid.entities.Barrique;
 import org.sid.entities.Entrepot;
 import org.sid.entities.Rack;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,24 @@ public class EntrepotRestService {
 		return entrepotRepository.RechercherEntrepot(IdEntrepot);
 	}
 
-	@RequestMapping(value = "/entrepots/{id}", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/entrepots/{id}", method = RequestMethod.POST)
 	public Entrepot save(@RequestBody Entrepot e) {
 		return entrepotRepository.save(e);
-	}
+	}*/
+	@RequestMapping(value = "/entrepotsEnStock", method = RequestMethod.GET)
+	public List<Entrepot> save() {
+		return entrepotRepository.getEntrepotsEtat();
 
+}
+	
+	@RequestMapping(value = "/entrepots/{id}", method = RequestMethod.POST)
+	public Entrepot addEntrepot(@RequestBody Entrepot e) {
+		return entrepotRepository.addEntrepot(e);
+	}
+	
+	@RequestMapping(value = "/entrepots/{IdEntrepot}", method = RequestMethod.POST)
+	public Entrepot ModifEntrepot(@RequestParam long IdEntrepot, @RequestParam String ReferenceEntrepot,@RequestParam float Superficie) {
+		
+		return entrepotRepository.ModifEntrepot(IdEntrepot, ReferenceEntrepot, Superficie);
+	}
 }

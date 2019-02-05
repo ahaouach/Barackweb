@@ -44,26 +44,31 @@ public class BarriqueRestService {
 		return barriqueRepository.getBarriques();
 	}
 
-	@RequestMapping(value = "/addbarriques/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/addbarriques/{b}", method = RequestMethod.POST)
 	public Barrique save(@RequestBody Barrique b) {
 		return barriqueRepository.save(b);
 	}
 
-	@RequestMapping(value = "/chercherBarriques", method = RequestMethod.GET)
+/*	@RequestMapping(value = "/chercherBarriques", method = RequestMethod.GET)
 	public Page<Barrique> chercher(@RequestParam(name = "IdBarrique", defaultValue = "") Long IdBarrique,
 			@RequestParam(name = "page", defaultValue = "0") int page,
 			@RequestParam(name = "size", defaultValue = "5") int size) {
 		return barriqueRepository.chercher(IdBarrique, new PageRequest(page, size));
-	}
+	}*/
 	@RequestMapping(value = "/alerteBarriques", method = RequestMethod.GET)
 	public List<Barrique> AlerteMaturite() {
 		return barriqueRepository.AlerteMaturite();
 	}
 	
-	@RequestMapping(value = "/rechercherBarrique/{IdEntrepot}", method = RequestMethod.GET)
+	@RequestMapping(value = "/rechercherbarriqueEntrepot/{IdEntrepot}", method = RequestMethod.GET)
 	public List<Barrique> RechercherEntrepot(@PathVariable Long IdEntrepot) {
-		return barriqueRepository.RechercherBarrique(IdEntrepot);
+		return barriqueRepository.RechercherBarriqueEntrepot(IdEntrepot);
 	}
+	@RequestMapping(value = "/rechercherbarrique/{IdBarique}", method = RequestMethod.GET)
+	public List<Barrique> RechercherBarrique(@PathVariable long IdBarique) {
+		return barriqueRepository.RechercherBarrique(IdBarique);
+	}
+
 	
 	
 }

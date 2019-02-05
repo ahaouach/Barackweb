@@ -20,19 +20,28 @@ public class EtiquetteRestService {
 		@Autowired
 		private EtiquetteRepository etiquetteRepository;
 
-		@RequestMapping(value = "/etiquettes", method = RequestMethod.GET)
+	/*	@RequestMapping(value = "/etiquettes", method = RequestMethod.GET)
 		public List<Etiquette> getEtiquettes() {
 			return etiquetteRepository.findAll();
-		}
+		}*/
 
-		@RequestMapping(value = "/etiquettes/{id}", method = RequestMethod.GET)
-		public Etiquette getEtiquette(@PathVariable Long id) {
-			return etiquetteRepository.findOne(id);
+		@RequestMapping(value = "/etiquettes/{idEtiquette}", method = RequestMethod.GET)
+		public Etiquette getEtiquette(@PathVariable Long Etiquette) {
+			return etiquetteRepository.findOne(Etiquette);
 		}
 
 		@RequestMapping(value = "/etiquettesajouter", method = RequestMethod.POST)
 		public Etiquette addEtiquette(@RequestBody Etiquette et) {
-			return etiquetteRepository.save(et);
+			return etiquetteRepository.addEtiquette(et);
+		}
+		@RequestMapping(value = "/etiquettes/{IdEtiquette,Code}", method = RequestMethod.POST)
+		public Etiquette ModifEttiquette(long IdEtiquette, String code) {
+			return etiquetteRepository.ModifEttiquette(IdEtiquette, code);
+		}
+		@RequestMapping(value = "/etiquettes", method = RequestMethod.GET)
+		public List<Etiquette> getEtiquettes() {
+			return etiquetteRepository.getEtiquettes();
+			
 		}
 	}
 

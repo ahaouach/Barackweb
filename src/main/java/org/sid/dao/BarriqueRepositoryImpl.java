@@ -26,10 +26,10 @@ public class BarriqueRepositoryImpl implements BarriqueRepositoryCustom {
 	public List<Barrique> AlerteMaturite() {
 		final Date date = new Date();
 		String Dates = new SimpleDateFormat("dd/MM/yyyy").format(date);
-		Query req = em.createNativeQuery("SELECT * FROM Barrique b WHERE CONVERT(b.date_matura_vin, DATETIME) <= NOW()");
+		Query req = em.createNativeQuery("SELECT * FROM Barrique b WHERE CONVERT(b.DateMaturaVin, DATETIME) <= NOW()");
 		List<String> a = req.getResultList();
 		System.out.println(""+a);
-	
+	    
 		return req.getResultList();
 	}
 	
@@ -41,7 +41,7 @@ public class BarriqueRepositoryImpl implements BarriqueRepositoryCustom {
 		b.setRacks(r);
 		em.persist(b);
 		System.out.println("****************************  Barrique numero :" + b.getIdBarique()
-				+ " est ajouté avec succés dans l'emplacement " + b.getXLigne() + b.getYColone() + b.getZEtiquette()
+				+ " est ajouté avec succés dans l'emplacement " + b.getXLigne() +" "+ b.getYColone() + " " + b.getZEtiquette()
 				+ ":) " + "*************************");
 
 		
@@ -50,23 +50,31 @@ public class BarriqueRepositoryImpl implements BarriqueRepositoryCustom {
 	@Override
 	public List<Barrique> getBarriques() {
 		Query req = em.createNativeQuery("select * from Barrique b");
+		System.out.println(""+req.getResultList());
 		return req.getResultList();
 	}
 	
 	@Override
-	public List<Barrique> RechercherBarrique(long IdEntrepot) {
+	public List<Barrique> RechercherBarriqueEntrepot(long IdEntrepot) {
 
 		// Entrepot e = em.find(Entrepot.class, IdEntrepot);
-		Query req = em.createNativeQuery("select b.id_barique, b.code_barre, b.date_fabrica_vin, b.date_matura_vin, b.date_operation,"
-				+ " b.etat, b.xligne, b.ycolone, b.zetiquette, b.id_rack "
-				+ "from barrique b "
-				+ "INNER JOIN rack r ON r.id_rack = b.id_rack " + "INNER JOIN entrepot e ON e.id_entrepot = r.id_entrepot "
-				+ "WHERE e.id_entrepot = '" + IdEntrepot + "'");
+		Query req = em.createNativeQuery("select b.IdBarique, b.CodeBarre, b.DateFabricaVin, b.DateMaturaVin, b.DateOperation, "
+				+ "b.Etat, b.XLigne, b.YColone, b.ZEtiquette, b.IdRack, b.IdEtiquette "
+				+ " from Barrique b INNER JOIN Rack r ON r.IdRack = b.IdRack INNER JOIN Entrepot e ON e.IdEntrepot = r.IdEntrepot WHERE e.IdEntrepot = '"+IdEntrepot+"'" );
 		List<String> a = req.getResultList();
 		System.out.println("" + a);
 		return req.getResultList();
 
 	}
-	
+	@Override
+	public List<Barrique> RechercherBarrique(long IdBarique) {
+
+		// Entrepot e = em.find(Entrepot.class, IdEntrepot);
+		Query req = em.createNativeQuery("select * from Barrique b WHERE b.IdBarique = '"+IdBarique+"'" );
+		List<String> a = req.getResultList();
+		System.out.println("" + a);
+		return req.getResultList();
+
+	}
 	
 }

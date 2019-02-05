@@ -4,10 +4,13 @@ import org.sid.dao.BarriqueRepository;
 import org.sid.dao.BarriqueRepositoryImpl;
 import org.sid.dao.EntrepotRepository;
 import org.sid.dao.EtiquetteRepository;
+import org.sid.dao.MouvementRepository;
 import org.sid.dao.RackRepository;
+import org.sid.dao.UserRepository;
 import org.sid.entities.Barrique;
 import org.sid.entities.Entrepot;
 import org.sid.entities.Etiquette;
+import org.sid.entities.Mouvement;
 import org.sid.entities.Rack;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,7 +22,7 @@ import org.springframework.stereotype.Service;
 
 @SpringBootApplication
 
-@ComponentScan("org.sid") // to scan packages mentioned*/
+@ComponentScan("org.sid") // to scan packages mentioned
 @EnableJpaRepositories("org.sid.dao")
 public class BarackwebApplication implements CommandLineRunner {
 	@Autowired
@@ -30,7 +33,10 @@ public class BarackwebApplication implements CommandLineRunner {
 	private EntrepotRepository entrepotRepository;
     @Autowired
     private EtiquetteRepository etiquetteRepository;
-    
+    @Autowired
+    private MouvementRepository mouvementRepository;
+    @Autowired
+    private UserRepository userRepository;
     
 	public static void main(String[] args) {
 		SpringApplication.run(BarackwebApplication.class, args);
@@ -39,24 +45,29 @@ public class BarackwebApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 	//rackRepository.addRack(new Rack(1, "gauche", 20, 30, 30, "2019/02/03"), 1);
-		entrepotRepository.RechercherEntrepot(2);
-		barriqueRepository.AlerteMaturite(); 
+		//entrepotRepository.RechercherEntrepot(2);
+	//	barriqueRepository.AlerteMaturite(); 
 	//	etiquetteRepository.save(new Etiquette("", "", true));
-		
-		barriqueRepository.getBarriques();
-		etiquetteRepository.findAll().forEach(r -> {
+	//userRepository.ModifUser(25, "haouach", "azel", "stockist", "azel", "azel");
+	//	mouvementRepository.addMouvement(new Mouvement("2019/02/05", "", true), 1, 1, 1);
+		//mouvementRepository.MouvementsDates("entrant", "2019/02/04", "2019/02/07");
+		//barriqueRepository.RechercherBarrique(2);
+	mouvementRepository.MouvementsDates("entrant", "2019/02/04", "2019/02/07");
+	
+	//	barriqueRepository.getBarriques();
+		/*etiquetteRepository.findAll().forEach(r -> {
 			System.out.println("la nouvelle etiquette " + r.getIdEtiquette());
 
-		});
+		});*/
 		//entrepotRepository.save(new Entrepot("aaa", 3000, "2019/02/01", true));
-		entrepotRepository.findAll().forEach(r -> {
+		/*entrepotRepository.findAll().forEach(r -> {
 			System.out.println("le nouveau entrepot " + r.getIdEntrepot());
 
-		});
+		});*/
 	
 		
-	//	barriqueRepository.addBarrique(new Barrique("aaa", 12, 12, "b", "2019/02/01", "2022/02/01", "2019/01/29", true),
-			//	1, 8);
+	//barriqueRepository.addBarrique(new Barrique("aaa", 12, 12, "b", "2019/02/01", "2019/02/01", "2019/01/29", true),
+			//	1, 2);
 	//	barriqueRepository.addBarrique(new Barrique("azel", 20, 20, "A", dateFabricaVin, dateMaturaVin, dateOperation, etat), IdEtiquette, IdRack)
 		// barriqueRepository.save(new Barrique("aaa", 12, 12, "b", "2019/02/01",
 		// "2022/02/01", "2019/01/29", true));
@@ -70,7 +81,7 @@ public class BarackwebApplication implements CommandLineRunner {
 		
 
 		
-		rackRepository.findAll().forEach(r -> {
+	rackRepository.findAll().forEach(r -> {
 			System.out.println("le nouveau rack" + r.getIdRack());
 
 		});

@@ -6,7 +6,7 @@ import org.sid.entities.Etiquette;
 
 public interface EtiquetteRepositoryCustom {
 
-	public void ModifEttiquette(long IdEtiquette, String code);
+	public Etiquette ModifEttiquette(long IdEtiquette, String code);
 
 	public List<Etiquette> getEtiquettes();
 
